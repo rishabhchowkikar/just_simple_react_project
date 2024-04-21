@@ -1,23 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import "./App.css";
+import AerialInput from "./Components/User/AerialInput";
+import UserList from "./Components/User/UserList";
 
 function App() {
+  const Dummy_Data = [];
+  const [enteredUserDummyData, setUserDummyData] = useState(Dummy_Data);
+
+  const onNewUserHandler = (userData) => {
+    setUserDummyData((prevData) => {
+      console.log([userData, ...prevData]);
+      return [userData, ...prevData];
+    });
+  };
+
+  // useEffect(() => {
+  //   const savedData = localStorage.getItem("enteredUserDummyData");
+  //   if (savedData) {
+  //     setUserDummyData(JSON.parse(savedData));
+  //   }
+  // }, []);
+
+  // useEffect(() => {
+  //   localStorage.setItem("formData", JSON.stringify(enteredUserDummyData));
+  // }, [enteredUserDummyData]);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1 style={{ textAlign: "center", color: "white" }}>
+        Welcome to Practice Project
+      </h1>
+      <AerialInput onAddUserData={onNewUserHandler} />
+      <UserList users={enteredUserDummyData} />
     </div>
   );
 }
